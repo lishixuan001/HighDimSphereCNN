@@ -36,20 +36,18 @@ def knn(adj_matrix, k=20):
 def sample_subset(idx_input, num_output):
     return np.random.choice(idx_input, num_output ,replace = False)
 
-def sdt(x, grid = 20, sigma = 1):
+def sdt_gpu(x, grid = 20, sigma = 1):
     dim = x.shape[2]
     num_point = x.shape[1]
-    out = np.zeros((x.shape[0],x.shape[1],grid**dim,1))
     linspace = np.linspace(0,1,grid)
     mesh = linspace
     for i in range(dim-1):
         mesh = np.meshgrid(mesh, linspace)
     mesh = np.array(mesh)
     mesh = mesh.reshape(mesh.shape[0], -1)
-    for batch_id in range(x.shape[0]):
-        for id_, var in enumerate(mesh.T):
-            var = var.reshape((1, -1))
-            core_dis = np.sum( (np.squeeze(x[batch_id, ...]) -  np.repeat(var, num_point, axis = 0) ) **2, axis =1) *1.0 /(2*sigma)
-            out[batch_id, :, id_,0] = np.exp( -core_dis)
-    norms = np.linalg.norm(out, axis = 2, keepdims=True)
+    
+    temp = x.unsqueeze(-1).repeat( 1,1,1,mesh.shape[-1])
+    temp = temp - torch.from_numpy(np.expand_dims(np.expand_dims(mesh, 0),0)).cuda()
+    out = torch.sum(temp**2, -2)
+    norms = torch.norm(out, dim = 2, keepdim=True)
     return out/norms
