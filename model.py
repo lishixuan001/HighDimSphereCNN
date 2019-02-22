@@ -3,6 +3,7 @@ import time
 import torch.nn as nn
 import torch.nn.functional as F
 import wFM
+import utils
 
 class ManifoldNet(nn.Module):
     def __init__(self, num_classes, num_neighbor):
@@ -12,7 +13,8 @@ class ManifoldNet(nn.Module):
         # self.wFM3 = wFM.wFMLayer(20, 30, num_neighbor)
         self.last = wFM.Last(10, num_classes)
     
-    def forward(self, x, neighborhood_matrix):
+    def forward(self, x):
+        adj = utils.pairwise_distance(x)
         #return self.last(self.wFM3(self.wFM2(self.wFM1(x, neighborhood_matrix), neighborhood_matrix), neighborhood_matrix))
-        return self.last(self.wFM1(x, neighborhood_matrix))
+        return self.last(self.wFM1(x, adj))
 

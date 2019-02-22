@@ -8,56 +8,73 @@ import os
 import time
 import datetime
 import utils
+import h5py
 from pdb import set_trace as st
+import argparse
 
-train_iter = 1000
-trainloader = dataloader.getLoader("./mnistPC/train.hdf5", 10, 'train')
-grid = 20
-sigma = 0.1
-model = ManifoldNet(10, 15)
-optim = torch.optim.Adam(model.parameters(), lr=1e-3)
+#trainloader = dataloader.getLoader("./mnistPC/train.hdf5", 80, 'train')
+
 #optim = torch.optim.SGD(model.parameters(), lr=1e-6)
-
-for epoch in range(train_iter):  # loop over the dataset multiple times
-
-    running_loss = 0.0
-    cls_criterion = torch.nn.CrossEntropyLoss()
-    for i, (inputs, labels) in enumerate(trainloader):
-        # get the inputs
-        #inputs, labels = data
-        adj = utils.pairwise_distance(inputs)
-        x = inputs
-        dim = x.shape[2]
-        num_point = x.shape[1]
-        linspace = np.linspace(-1,1,grid)
-        mesh = linspace
-        for i in range(dim-1):
-            mesh = np.meshgrid(mesh, linspace)
-        mesh = torch.from_numpy(np.array(mesh))#.cuda()
-        mesh = mesh.reshape(mesh.shape[0], -1).float()
+    
+def eval(test_iterator, model, grid, sigma):
+    acc_all = []
+    for (inputs, labels) in (test_iterator):
+        inputs = Variable(inputs).cuda()
+        pred = model(utils.sdt(inputs, grid, sigma))
+        pred = torch.argmax(pred, dim=-1)
+        acc_all.append(np.mean(pred.detach().cpu().numpy() == labels.numpy()))
+    return np.mean(acc_all)
         
-        temp = x.unsqueeze(-1).repeat( 1,1,1,mesh.shape[-1])
-        temp = temp - mesh.unsqueeze(0).unsqueeze(0)#torch.from_numpy(np.expand_dims(np.expand_dims(mesh, 0),0)).cuda()
-        out = torch.sum(temp**2, -2)
-        out = torch.exp(-out/(2*sigma))
-        norms = torch.norm(out, dim = 2, keepdim=True)
-        inputs = (out/norms).unsqueeze(-1)
-        # zero the parameter gradients
-        optim.zero_grad()
 
-        # forward + backward + optimize
-        outputs = model(inputs, adj)
-        print(1 in torch.isnan(outputs).numpy())
-        #print(labels.squeeze())
-        #loss = F.cross_entropy(outputs, labels.squeeze())
-        loss = cls_criterion(outputs, labels.squeeze())
-        loss.backward()
-        optim.step()
-        print("loss is "+str(loss.item()))
 
-        # print statistics
-        running_loss += loss.item()
-    #print('[%d, %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss / (i+1)))
-    running_loss = 0.0
+def train(train_data_dir, test_data_dir, train_iter, log_interval, grid, sigma, batch_size):
+    model = ManifoldNet(10, 15)
+    optim = torch.optim.Adam(model.parameters(), lr=1e-2)
+    test_iterator = utils.load_data(train_data_dir, batch_size=40)
+    train_iterator = utils.load_data(test_data_dir, batch_size=batch_size)
+    for epoch in range(train_iter):  # loop over the dataset multiple times
+        running_loss = []
+        cls_criterion = torch.nn.CrossEntropyLoss()
+        for i, (inputs, labels) in enumerate(train_iterator):
+            # get the inputs
+            #inputs, labels = data
+            inputs, labels = Variable(inputs).cuda(), Variable(labels).cuda()
+            # zero the parameter gradients
+            optim.zero_grad()
 
-print('Finished Training')
+            # forward + backward + optimize
+            outputs = model(utils.sdt(inputs, grid, sigma))
+            #print(1 in torch.isnan(outputs).numpy())
+            #print(labels.squeeze())
+            #loss = F.cross_entropy(outputs, labels.squeeze())
+            loss = cls_criterion(outputs, labels.squeeze())
+            loss.backward(retain_graph=True)
+            optim.step()
+
+            # print statistics
+            running_loss.append( loss.item() )
+            if i % log_interval == 0:
+                #acc = eval(test_iterator, model)
+                #print(acc*100 +"%", np.mean(running_loss) )
+                print(np.mean(running_loss))
+
+        #print('[%d, %5d] loss: %.3f' % (epoch + 1, i + 1, running_loss / (i+1)))
+        print("Epoch"+str(epoch))
+        print(np.mean(running_loss) )
+        running_loss = []
+
+    print('Finished Training')
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='HighDimSphere Train')
+    parser.add_argument('--data_path', default='./mnistPC',  type=str, metavar='XXX', help='Path to the model')
+    parser.add_argument('--batch_size', default=80 , type=int, metavar='N', help='Batch size of test set')
+    parser.add_argument('--max_epoch', default=200 , type=int, metavar='N', help='Epoch to run')
+    parser.add_argument('--log_interval', default=10 , type=int, metavar='N', help='log_interval')
+    parser.add_argument('--grid', default=10 , type=int, metavar='N', help='grid of sdt')
+    parser.add_argument('--sigma', default=0.01 , type=float, metavar='N', help='sigma of sdt')
+    
+    args = parser.parse_args()
+    test_data_dir = os.path.join(args.data_path, "test.hdf5")
+    train_data_dir = os.path.join(args.data_path, "train.hdf5")
+    train(train_data_dir, test_data_dir, args.max_epoch, args.log_interval, args.grid, args.sigma, args.batch_size)
