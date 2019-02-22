@@ -13,9 +13,9 @@ from pdb import set_trace as st
 train_iter = 1000
 trainloader = dataloader.getLoader("./mnistPC/train.hdf5", 10, 'train')
 grid = 20
-sigma = 10
+sigma = 0.1
 model = ManifoldNet(10, 15)
-optim = torch.optim.Adam(model.parameters(), lr=1e-4)
+optim = torch.optim.Adam(model.parameters(), lr=1e-3)
 #optim = torch.optim.SGD(model.parameters(), lr=1e-6)
 
 for epoch in range(train_iter):  # loop over the dataset multiple times

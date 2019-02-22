@@ -5,6 +5,7 @@ import torch.nn.functional as F
 from utils import *
 import h5py 
 from pdb import set_trace as st
+
 class wFMLayer(nn.Module):
     def __init__(self, in_channels, out_channels, num_neighbor):
         super(wFMLayer, self).__init__()
@@ -24,6 +25,7 @@ class wFMLayer(nn.Module):
       
       idx = torch.arange(B)*N #IDs for later processing, used because we flatten the tensor
       idx = idx.view((B, 1, 1)) #reshape to be added to knn indices
+      st()
       k2 = knn(adj_mtr, k=k) #B*N*k
       k2 = k2+idx
       
