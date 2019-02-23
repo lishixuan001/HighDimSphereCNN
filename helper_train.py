@@ -89,7 +89,7 @@ def load_data(dataset_class, batch_size, shuffle=True, num_workers=4):
     """
     # FIXME : Labels be long type ?
     loader = torch.utils.data.TensorDataset(dataset_class.data.float(),
-                                            dataset_class.labels,
+                                            dataset_class.labels.long(),
                                             dataset_class.adjacent_matrix.float())
     loader_dataset = torch.utils.data.DataLoader(loader,
                                                  batch_size=batch_size,
