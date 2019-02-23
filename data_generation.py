@@ -83,7 +83,7 @@ def main():
         progress(end, total_count)
         start += batch_size
         end += batch_size
-    tensor_dataset_subset = tensor_dataset[start: tensor_dataset.size()[0]-1]
+    tensor_dataset_subset = tensor_dataset[start: tensor_dataset.size()[0]]
     tensor_dataset_subset_adj = utils.pairwise_distance(tensor_dataset_subset)
     adj_tensor_datasets.append(tensor_dataset_subset_adj)
     progress(total_count, total_count)
@@ -124,7 +124,7 @@ def main():
         progress(end, total_count)
         start += batch_size
         end += batch_size
-    tensor_dataset_subset = tensor_dataset[start: tensor_dataset.size()[0]-1]
+    tensor_dataset_subset = tensor_dataset[start: tensor_dataset.size()[0]]
     tensor_dataset_mapped_norm = map_and_norm(tensor_dataset_subset, grid, sigma)
     mapped_tensor_datasets.append(tensor_dataset_mapped_norm)
     progress(total_count, total_count)
