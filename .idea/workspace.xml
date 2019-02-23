@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aaae0bf4-192e-439a-9c22-145a2ec5c94a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/data_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/data_generation.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/helper_data_generation.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper_data_generation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,13 +31,13 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="py" value="9792" />
+          <entry key="py" value="9818" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="9792" />
+          <entry key="Python" value="9818" />
         </counts>
       </usages-collector>
     </session>
@@ -82,7 +81,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/helper_train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2392">
+            <state relative-caret-position="2316">
               <caret line="104" selection-start-line="104" selection-end-line="104" selection-end-column="35" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
@@ -96,7 +95,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/data_generation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="437">
+            <state relative-caret-position="294">
               <caret line="38" column="43" lean-forward="true" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
@@ -108,12 +107,12 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/helper_data_generation.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="715">
-              <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+            <state relative-caret-position="1042">
+              <caret line="140" column="26" lean-forward="true" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="26" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1550931284567" expanded="true" signature="1436:1437" ph="..." />
-                <marker date="1550931284567" expanded="true" signature="3542:4715" ph="..." />
+                <marker date="1550931496420" expanded="true" signature="1436:1437" ph="..." />
+                <marker date="1550931496420" expanded="true" signature="3542:4715" ph="..." />
               </folding>
             </state>
           </provider>
@@ -143,8 +142,8 @@
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$USER_HOME$/Downloads/[Down]HighDimSphereCNN/wFM.py" />
         <option value="$PROJECT_DIR$/wFM.py" />
-        <option value="$PROJECT_DIR$/helper_data_generation.py" />
         <option value="$PROJECT_DIR$/data_generation.py" />
+        <option value="$PROJECT_DIR$/helper_data_generation.py" />
       </list>
     </option>
   </component>
@@ -230,7 +229,7 @@
       <window_info anchor="bottom" id="Database Changes" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" show_stripe_button="false" />
       <window_info anchor="bottom" id="Python Console" />
-      <window_info anchor="bottom" id="Terminal" visible="true" weight="0.19847329" />
+      <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.19847329" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32988003" />
@@ -377,18 +376,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/helper_train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2392">
-          <caret line="104" selection-start-line="104" selection-end-line="104" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1550925244713" expanded="true" signature="457:458" ph="..." />
-            <marker date="1550925244713" expanded="true" signature="4332:4769" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="230">
@@ -441,9 +428,21 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/helper_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2316">
+          <caret line="104" selection-start-line="104" selection-end-line="104" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+            <marker date="1550925244713" expanded="true" signature="457:458" ph="..." />
+            <marker date="1550925244713" expanded="true" signature="4332:4769" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/data_generation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="437">
+        <state relative-caret-position="294">
           <caret line="38" column="43" lean-forward="true" selection-start-line="38" selection-start-column="43" selection-end-line="38" selection-end-column="43" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
@@ -453,12 +452,12 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/helper_data_generation.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="715">
-          <caret line="70" column="37" selection-start-line="70" selection-start-column="37" selection-end-line="70" selection-end-column="37" />
+        <state relative-caret-position="1042">
+          <caret line="140" column="26" lean-forward="true" selection-start-line="140" selection-start-column="26" selection-end-line="140" selection-end-column="26" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
-            <marker date="1550931284567" expanded="true" signature="1436:1437" ph="..." />
-            <marker date="1550931284567" expanded="true" signature="3542:4715" ph="..." />
+            <marker date="1550931496420" expanded="true" signature="1436:1437" ph="..." />
+            <marker date="1550931496420" expanded="true" signature="3542:4715" ph="..." />
           </folding>
         </state>
       </provider>
