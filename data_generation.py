@@ -89,6 +89,8 @@ def main():
 
     adjacent_matrix = torch.cat(tuple(adj_tensor_datasets), dim=0)
 
+    logger.info("Finish Computing Adjacent Matrix".ljust(60))
+
     ##########################################################
     #                     Data Generation                    #
     ##########################################################
@@ -128,7 +130,7 @@ def main():
 
     tensor_dataset = torch.cat(tuple(mapped_tensor_datasets), dim=0)
 
-    logger.info("Finish Dataset Generation Processes")
+    logger.info("Finish Dataset Generation Processes".ljust(60))
 
     ##########################################################
     #                       Data Saving                      #

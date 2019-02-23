@@ -136,9 +136,7 @@ def progress(count, total):
     bar = '=' * filled_len + '-' * (bar_len - filled_len)
     sys.stdout.write('[%s] %s%s\r' % (bar, percents, '%'))
     sys.stdout.flush()
-    if percents == 100:
-        sys.stdout.write("")
-        sys.stdout.flush()
+    
 
 ##########################################################
 #                         Mapping                        #
