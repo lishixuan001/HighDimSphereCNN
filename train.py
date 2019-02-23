@@ -31,13 +31,15 @@ def main():
 
 
     if args.test:
-        input_file_path = join(args.input_prefix, "test.gz")
+        input_file_name = "test.gz"
     else:
-        input_file_path = join(args.input_prefix, "train.gz")
+        input_file_name = "train.gz"
 
     """ Data Size (num of images to be loaded)"""
     if args.demo:
-        input_file_path = "demo_" + input_file_path
+        input_file_name = "demo_" + input_file_name
+
+    input_file_path = join(args.input_prefix, input_file_name)
 
     logger.info("Loading Dataset")
     logger.info("==> Loading DatasetConstructor")

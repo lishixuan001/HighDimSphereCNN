@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aaae0bf4-192e-439a-9c22-145a2ec5c94a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/helper_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper_train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -31,27 +31,27 @@
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
-          <entry key="py" value="9867" />
+          <entry key="py" value="9919" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
-          <entry key="Python" value="9867" />
+          <entry key="Python" value="9919" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/train.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-885">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="1012">
+              <caret line="44" column="49" lean-forward="true" selection-start-line="44" selection-start-column="49" selection-end-line="44" selection-end-column="49" />
               <folding>
                 <element signature="e#0#11#0" expanded="true" />
-                <marker date="1550925700752" expanded="true" signature="234:4261" ph="..." />
+                <marker date="1550932458286" expanded="true" signature="234:4275" ph="..." />
               </folding>
             </state>
           </provider>
@@ -78,7 +78,7 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/helper_train.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="735">
@@ -137,13 +137,13 @@
         <option value="$USER_HOME$/Downloads/HighDimSphereCNN/solver.py" />
         <option value="$USER_HOME$/Downloads/[Down]HighDimSphereCNN/solver.py" />
         <option value="$PROJECT_DIR$/model.py" />
-        <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$USER_HOME$/Downloads/[Down]HighDimSphereCNN/wFM.py" />
         <option value="$PROJECT_DIR$/wFM.py" />
         <option value="$PROJECT_DIR$/helper_data_generation.py" />
         <option value="$PROJECT_DIR$/data_generation.py" />
         <option value="$PROJECT_DIR$/helper_train.py" />
+        <option value="$PROJECT_DIR$/train.py" />
       </list>
     </option>
   </component>
@@ -440,17 +440,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/train.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-885">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-            <marker date="1550925700752" expanded="true" signature="234:4261" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/helper_train.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="735">
@@ -459,6 +448,17 @@
             <element signature="e#0#15#0" expanded="true" />
             <marker date="1550932322238" expanded="true" signature="457:458" ph="..." />
             <marker date="1550932322238" expanded="true" signature="4333:4770" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1012">
+          <caret line="44" column="49" lean-forward="true" selection-start-line="44" selection-start-column="49" selection-end-line="44" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1550932458286" expanded="true" signature="234:4275" ph="..." />
           </folding>
         </state>
       </provider>
