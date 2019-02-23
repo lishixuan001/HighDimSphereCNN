@@ -25,7 +25,9 @@ for epoch in range(train_iter):  # loop over the dataset multiple times
     for i, (inputs, labels) in enumerate(trainloader):
         # get the inputs
         #inputs, labels = data
-        adj = utils.pairwise_distance(inputs)(2, 512, 512)
+        adj = utils.pairwise_distance(inputs)
+        print(adj.size())
+        adj = adj(2, 512, 512)
         image = inputs # x is data
 
         dim = image.shape[2] # dimension for each point
@@ -53,6 +55,7 @@ for epoch in range(train_iter):  # loop over the dataset multiple times
         norms = torch.norm(out, dim = 2, keepdim=True)
 
         inputs = (out/norms).unsqueeze(-1)
+
         # zero the parameter gradients
         optim.zero_grad()
 

@@ -1,4 +1,5 @@
 import argparse
+import sys
 from os.path import join
 import numpy as np
 from torch.utils.data import Dataset
@@ -17,11 +18,12 @@ def load_args():
     Load arguments from user command input [attributes for training]
     :return: parsed arguments
     """
+    mnist_data_path = '../mnistPC'
     parser = argparse.ArgumentParser()
     parser.add_argument("--batchsize",
                         help="the batch size of the dataloader",
                         type=int,
-                        default=8,  ###
+                        default=8,
                         required=True)
     parser.add_argument("--validsize",
                         help="percentage that training set split into validation set",
@@ -32,6 +34,16 @@ def load_args():
                         help="file for saving the data (.gz file)",
                         type=str,
                         default="../mnistPC",
+                        required=False)
+    parser.add_argument("--demo",
+                        help="if demo is true, then only load small number of images",
+                        type=bool,
+                        default=False,
+                        required=False)
+    parser.add_argument("--test",
+                        help="if test is true, then load data from test dataset",
+                        type=bool,
+                        default=True,
                         required=False)
     parser.add_argument("--epochs",
                         help="number of epochs",
@@ -49,3 +61,16 @@ def load_args():
                         required=True)
     args = parser.parse_args()
     return args
+
+##########################################################
+#                      Progress Bar                    #
+##########################################################
+
+def progress(count, total):
+    bar_len = 60
+    filled_len = int(round(bar_len * count / float(total)))
+    percents = round(100.0 * count / float(total), 1)
+    bar = '=' * filled_len + '-' * (bar_len - filled_len)
+    print('\r[%s] %s%s' % (bar, percents, '%'), end='')
+    # sys.stdout.write('[%s] %s%s\r' % (bar, percents, '%'))
+    sys.stdout.flush()

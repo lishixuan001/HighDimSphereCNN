@@ -1,0 +1,16 @@
+2019-02-22 19:18:36 INFO     Received Args: 
+Namespace(bandwidth=10, batch_size=1, demo=True, grid_size=20, output_prefix='../mnistPC', sigma=10, test=True, test_file_path='../mnistPC/test.hdf5', train_file_path='../mnistPC/train.hdf5')
+2019-02-22 19:18:36 INFO     Start Loading MNIST Data and Configurations
+2019-02-22 19:18:36 INFO     ==> Loading Configurations
+2019-02-22 19:18:36 INFO     ==> Loading Labels
+2019-02-22 19:18:36 INFO     ==> Loading Data Set
+2019-02-22 19:18:36 INFO     ==> Data Dimension Adjustment Operated
+2019-02-22 19:18:36 INFO     Finish Loading MNIST Data and Basic Configuration
+2019-02-22 19:18:36 INFO     Start Computing Dataset Generation
+2019-02-22 19:18:36 INFO     ==> Normalizing Raw Data
+2019-02-22 19:18:36 INFO     ==> Constructing Grid
+2019-02-22 19:18:36 INFO     ==> Calculating Mapping
+2019-02-22 19:18:38 INFO     ==> Normalizing Mapping Data
+2019-02-22 19:18:38 INFO     Finish Dataset Generation Processes
+2019-02-22 19:18:38 INFO     Start Saving Dataset
+2019-02-22 19:18:42 INFO     Finish Saving Dataset

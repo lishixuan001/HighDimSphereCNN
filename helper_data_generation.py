@@ -1,4 +1,6 @@
 import argparse
+import sys
+import torch
 from os.path import join
 import numpy as np
 from torch.utils.data import Dataset
@@ -12,9 +14,10 @@ from enum import Enum
 ##########################################################
 
 class MNIST(Dataset):
-    def __init__(self, tensor_data, tensor_labels):
+    def __init__(self, tensor_data, tensor_labels, adjacent_matrix):
         self.data = tensor_data  # (data_size, num_points, grid_size^3)
         self.labels = tensor_labels  # (data_size,)
+        self.adjacent_matrix = adjacent_matrix
 
     def __len__(self):
         return self.data.shape[0] # data_size
@@ -27,6 +30,9 @@ class MNIST(Dataset):
             label=label
         )
         return element
+
+    def get_adj_matrix(self):
+        return self.adjacent_matrix
 
 
 ##########################################################
@@ -51,11 +57,6 @@ def load_args():
                         type=str,
                         default=join(mnist_data_path, "test.hdf5"),
                         required=False)
-    parser.add_argument("--bandwidth",
-                        help="the bandwidth of the S2 signal",
-                        type=int,
-                        default=10,
-                        required=False)
     parser.add_argument("--batch_size",
                         help="the batch size of the dataloader",
                         type=int,
@@ -70,6 +71,11 @@ def load_args():
                         help="if test is true, then load data from test dataset",
                         type=bool,
                         default=True,
+                        required=False)
+    parser.add_argument("--num_load",
+                        help="number of images to be loaded",
+                        type=int,
+                        default=2,
                         required=False)
     parser.add_argument("--grid_size",
                         help="set the grid size",
@@ -103,6 +109,52 @@ def get_min_distance(point_cloud):
         min_distance = min(pairwise_point_distances.min(), min_distance)
     return min_distance
 
+
+##########################################################
+#                      Progress Bar                    #
+##########################################################
+
+def progress(count, total):
+    bar_len = 60
+    filled_len = int(round(bar_len * count / float(total)))
+    percents = round(100.0 * count / float(total), 1)
+    bar = '=' * filled_len + '-' * (bar_len - filled_len)
+    sys.stdout.write('[%s] %s%s\r' % (bar, percents, '%'))
+    sys.stdout.flush()
+
+##########################################################
+#                         Mapping                        #
+##########################################################
+
+def map_and_norm(tensor_dataset, grid, sigma):
+    """
+    Mapping the tensor_dataset and do normalization
+    :param tensor_dataset: dataset in tensor type
+    :param grid: grid dataset is mapped to
+    :param sigma: sigma parameter in mapping computation
+    :return: mapped and normalized tensor type dataset
+    """
+    """ Mapping """
+    tensor_dataset_spread = tensor_dataset.unsqueeze(-1)  # (data_size, num_points, 3, 1)
+    tensor_dataset_spread = tensor_dataset_spread.repeat(
+        (1, 1, 1, grid.size()[-1]))  # (data_size, num_points, 3, grid_size^3)
+    grid_spread = grid.unsqueeze(0).unsqueeze(0)  # (1, 1, 3, grid_size^3)
+    tensor_dataset_spread = tensor_dataset_spread - grid_spread  # (data_size, num_points, 3, grid_size^3)
+    tensor_dataset_spread_transpose = tensor_dataset_spread.transpose(2, 3)  # (data_size, num_points, grid_size^3, 3)
+    tensor_dataset_spread_transpose_norms = torch.norm(tensor_dataset_spread_transpose, dim=3, p=2,
+                                                       keepdim=True)  # (data_size, num_points, grid_size^3, 1)
+
+    tensor_dataset = torch.div(tensor_dataset_spread_transpose_norms,
+                               -2.0 * np.power(sigma, 2))  # (data_size, num_points, grid_size^3, 1)
+    tensor_dataset = torch.exp(tensor_dataset)  # (data_size, num_points, grid_size^3, 1)
+    tensor_dataset = tensor_dataset.squeeze(-1)  # (data_size, num_points, grid_size^3)
+
+    """ Normalization (Mapping) """
+    tensor_dataset_norms = torch.norm(tensor_dataset, dim=2, p=2, keepdim=True)  # (data_size, num_points, 1)
+    tensor_dataset_norms = tensor_dataset_norms.repeat(1, 1, grid.size()[-1])  # (data_size, num_points, grid_size^3)
+    tensor_dataset = tensor_dataset / tensor_dataset_norms  # (data_size, num_points, grid_size^3)
+
+    return tensor_dataset
 
 ##########################################################
 #                         Utility                        #

@@ -20,10 +20,34 @@ def main():
     logger.info("call with args: \n{}".format(args))
 
     ##########################################################
-    #                      Load Dataset                      #
+    #                        Load Data                       #
     ##########################################################
 
+    logger.info("==> Loading Configurations")
+
+    num_epochs = args.epochs
+    learning_rate = args.learning_rate
+    cuda_id = args.cuda
+    validation_size = args.validsize
+    batch_size = args.batchsize
+
+
+    if args.test:
+        input_file_path = join(args.input_prefix, "test.gz")
+    else:
+        input_file_path = join(args.input_prefix, "train.gz")
+
+    """ Data Size (num of images to be loaded)"""
+    if args.demo:
+        input_file_path = "demo_" + input_file_path
+
     logger.info("Loading MNIST Dataset")
+
+    with gzip.open(os.path.join(args.input_prefix, input_file_path), 'rb') as f:
+        dataset = pickle.load(f)
+
+    model = ManifoldNet(10, 15)
+    optim = torch.optim.Adam(model.parameters(), lr=1e-4)
 
 
 

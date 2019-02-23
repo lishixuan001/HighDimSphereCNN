@@ -27,14 +27,14 @@ def main():
     logger.info("==> Loading Configurations")
     if args.test:
         f_data = f_test
-        output_file_name = "test_mnist.gz"
+        output_file_name = "test.gz"
     else:
         f_data = f_train
-        output_file_name = "train_mnist.gz"
+        output_file_name = "train.gz"
 
     """ Data Size (num of images to be loaded)"""
     if args.demo:
-        data_size = 2 # Number of images to be loaded
+        data_size = args.num_load # Number of images to be loaded
         output_file_name = "demo_" + output_file_name
     else:
         data_size = f_data['data'].shape[0]
@@ -66,13 +66,38 @@ def main():
 
 
     ##########################################################
+    #                     Adjacent Matrix                    #
+    ##########################################################
+
+    logger.info("Start Computing Adjacent Matrix")
+
+    """ Adjacent Matrix """
+    batch_size = args.batch_size
+    start, end = 0, args.batch_size
+
+    total_count = tensor_dataset.size()[0]
+    adj_tensor_datasets = []
+    while end < tensor_dataset.size()[0]:
+        tensor_dataset_subset = tensor_dataset[start : end]
+        tensor_dataset_subset_adj = utils.pairwise_distance(tensor_dataset_subset)
+        adj_tensor_datasets.append(tensor_dataset_subset_adj)
+        progress(end, total_count)
+        start += batch_size
+        end += batch_size
+    tensor_dataset_subset = tensor_dataset[start: tensor_dataset.size()[0]-1]
+    tensor_dataset_subset_adj = utils.pairwise_distance(tensor_dataset_subset)
+    adj_tensor_datasets.append(tensor_dataset_subset_adj)
+    progress(total_count, total_count)
+
+    adjacent_matrix = torch.cat(tuple(adj_tensor_datasets), dim=0)
+
+    ##########################################################
     #                     Data Generation                    #
     ##########################################################
 
     logger.info("Start Computing Dataset Generation")
 
     """ Normalization (Raw) """
-    # TODO: Try normalize by norm, but divide-by-zero problem cannot fix
     logger.info("==> Normalizing Raw Data")
     tensor_dataset_transpose = tensor_dataset.transpose(0, 2) # (3, num_points, data_size)
 
@@ -97,28 +122,29 @@ def main():
     grid = torch.from_numpy(np.array(grid))
     grid = grid.reshape(grid.size()[0], -1).float() # (3, grid_size^3)
 
-    """ Mapping """
-    logger.info("==> Calculating Mapping")
+    """ Mapping and Normalization """
+    logger.info("==> Computing Mapping and Normalization")
     sigma = args.sigma
-    tensor_dataset_spread = tensor_dataset.unsqueeze(-1) # (data_size, num_points, 3, 1)
-    tensor_dataset_spread = tensor_dataset_spread.repeat((1, 1, 1, grid.size()[-1])) # (data_size, num_points, 3, grid_size^3)
-    grid_spread = grid.unsqueeze(0).unsqueeze(0) # (1, 1, 3, grid_size^3)
-    tensor_dataset_spread = tensor_dataset_spread - grid_spread # (data_size, num_points, 3, grid_size^3)
-    tensor_dataset_spread_transpose = tensor_dataset_spread.transpose(2, 3) # (data_size, num_points, grid_size^3, 3)
-    tensor_dataset_spread_transpose_norms = torch.norm(tensor_dataset_spread_transpose, dim=3, p=2, keepdim=True) # (data_size, num_points, grid_size^3, 1)
+    batch_size = args.batch_size
+    start, end = 0, args.batch_size
 
-    tensor_dataset = torch.div(tensor_dataset_spread_transpose_norms, -2.0 * np.power(sigma, 2)) # (data_size, num_points, grid_size^3, 1)
-    tensor_dataset = torch.exp(tensor_dataset) # (data_size, num_points, grid_size^3, 1)
-    tensor_dataset = tensor_dataset.squeeze(-1) # (data_size, num_points, grid_size^3)
+    total_count = tensor_dataset.size()[0]
+    mapped_tensor_datasets = []
+    while end < tensor_dataset.size()[0]:
+        tensor_dataset_subset = tensor_dataset[start : end]
+        tensor_dataset_mapped_norm = map_and_norm(tensor_dataset_subset, grid, sigma)
+        mapped_tensor_datasets.append(tensor_dataset_mapped_norm)
+        progress(end, total_count)
+        start += batch_size
+        end += batch_size
+    tensor_dataset_subset = tensor_dataset[start: tensor_dataset.size()[0]-1]
+    tensor_dataset_mapped_norm = map_and_norm(tensor_dataset_subset, grid, sigma)
+    mapped_tensor_datasets.append(tensor_dataset_mapped_norm)
+    progress(total_count, total_count)
 
-    """ Normalization (Mapping) """
-    logger.info("==> Normalizing Mapping Data")
-    tensor_dataset_norms = torch.norm(tensor_dataset, dim=2, p=2, keepdim=True)  # (data_size, num_points, 1)
-    tensor_dataset_norms = tensor_dataset_norms.repeat(1, 1, grid.size()[-1])  # (data_size, num_points, grid_size^3)
-    tensor_dataset = tensor_dataset / tensor_dataset_norms  # (data_size, num_points, grid_size^3)
+    tensor_dataset = torch.cat(tuple(mapped_tensor_datasets), dim=0)
 
     logger.info("Finish Dataset Generation Processes")
-
 
     ##########################################################
     #                       Data Saving                      #
@@ -126,7 +152,7 @@ def main():
 
     logger.info("Start Saving Dataset")
     with gzip.open(os.path.join(args.output_prefix, output_file_name), 'wb') as file:
-        pickle.dump(MNIST(tensor_dataset, tensor_labels), file)
+        pickle.dump(MNIST(tensor_dataset, tensor_labels, adjacent_matrix), file)
     logger.info("Finish Saving Dataset")
 
 if __name__ == '__main__':
