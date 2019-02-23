@@ -43,7 +43,8 @@ def main():
 
     """ Load Labels """
     logger.info("==> Loading Labels")
-    tensor_labels = np.array(f_data['labels'])[0:data_size] # [1, 2, 3]
+    np_labels = np.array(f_data['labels'])[0:data_size] # [1, 2, 3]
+    tensor_labels = torch.from_numpy(np_labels)
 
     """ Load Raw Data Set """
     logger.info("==> Loading Data Set")
