@@ -16,8 +16,8 @@ class wFMLayer(nn.Module):
         super(wFMLayer, self).__init__()
         #Initial input is B * N * D * C ----> B * N1 * D * C'
         #dont forget to normalize w in dim 0
-        self.w1 = nn.Parameter(torch.randn(in_channels, num_neighbor)).cuda()
-        self.w2 = nn.Parameter(torch.randn(out_channels, in_channels)).cuda()
+        self.w1 = nn.Parameter(torch.randn(in_channels, num_neighbor))
+        self.w2 = nn.Parameter(torch.randn(out_channels, in_channels))
         self.neighbors = num_neighbor
         self.out_channels = out_channels
 
@@ -43,10 +43,9 @@ class wFMLayer(nn.Module):
       gathered = gathered.view(B, N, k, D, C)
       north_pole_cos = torch.zeros(gathered.shape).cuda()
       theta = torch.acos(torch.clamp(gathered[:, :, :, 0, :], -1, 1)) #this is of shape B*N*K*C
-      eps = torch.ones(theta.shape)*0.0001
-      theta_sin = theta / (torch.sin(theta) + eps.cuda()) #theta/sin(theta) B*N*K*D*C
+      eps = (torch.ones(theta.shape)*0.0001).cuda()
+      theta_sin = theta / (torch.sin(theta) + eps ) #theta/sin(theta) B*N*K*D*C
       north_pole_cos[:, :, :, 0, :] = torch.cos(theta) #cos(theta)
-      st()
       q_p = gathered - north_pole_cos #q-cos(theta)
       theta_sin = theta_sin.repeat(1, 1, 1, D) #should be of shape B*N*K*D*C
       theta_sin = theta_sin.view(B, N, k, D, C)
@@ -119,8 +118,8 @@ class Last(nn.Module):
 
       north_pole_cos = torch.zeros(point_set.shape).cuda() #B*N*D*C
       theta = torch.acos(torch.clamp(point_set[:, :, 0, :], -1, 1)) #this is of shape B*N*D*C
-      eps = torch.ones(theta.shape)*0.0001
-      theta_sin = theta / (torch.sin(theta) + eps.cuda()) #theta/sin(theta) B*N*K*D*C
+      eps = (torch.ones(theta.shape)*0.0001).cuda()
+      theta_sin = theta / (torch.sin(theta) + eps) #theta/sin(theta) B*N*K*D*C
       north_pole_cos[:, :, 0, :] = torch.cos(theta) #cos(theta)
       q_p = point_set - north_pole_cos #q-cos(theta)
       theta_sin = theta_sin.repeat(1, 1, D) #should be of shape B*N*K*D*C
@@ -153,12 +152,12 @@ class Last(nn.Module):
     ## to do: implement inverse exponential mapping
     def forward(self, x):
         # print(self.wFM_on_sphere(x))
-        return self.linear2(self.wFM_on_sphere(x, adj_mtr))
+        return self.linear2(self.wFM_on_sphere(x))
 
 def sdt(x, grid = 20, sigma = 1):
    dim = x.shape[2]
    num_point = x.shape[1]
-   out = np.zeros((x.shape[0],x.shape[1],grid**dim,1))
+   out = np.zeros((x.shape[0],x.shape[1],grid**dim,1)).cuda()
    linspace = np.linspace(0,1,grid)
    mesh = linspace
    for i in range(dim-1):

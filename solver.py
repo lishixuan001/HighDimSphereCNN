@@ -28,13 +28,16 @@ def eval(test_iterator, model, grid, sigma):
 
 
 def train(train_data_dir, test_data_dir, train_iter, log_interval, grid, sigma, batch_size):
-    model = ManifoldNet(10, 15)
+    os.environ["CUDA_VISIBLE_DEVICES"] = "4,5"
+    model = ManifoldNet(10, 15).cuda()
+    model = torch.nn.DataParallel(model)
+    model = model.cuda()
     optim = torch.optim.Adam(model.parameters(), lr=1e-2)
     test_iterator = utils.load_data(train_data_dir, batch_size=40)
     train_iterator = utils.load_data(test_data_dir, batch_size=batch_size)
     for epoch in range(train_iter):  # loop over the dataset multiple times
         running_loss = []
-        cls_criterion = torch.nn.CrossEntropyLoss()
+        cls_criterion = torch.nn.CrossEntropyLoss().cuda()
         for i, (inputs, labels) in enumerate(train_iterator):
             # get the inputs
             #inputs, labels = data
