@@ -1,0 +1,6 @@
+2019-02-23 07:17:55 INFO     call with args: 
+Namespace(batchsize=2, cudas='0/1/2/3', demo=True, epochs=5, input_prefix='../mnistPC', learning_rate=0.01, num_classes=10, num_neighbors=15, test=True, validsize=0.16666666666666666)
+2019-02-23 07:17:55 INFO     ==> Loading Configurations
+2019-02-23 07:17:55 INFO     Loading Dataset
+2019-02-23 07:17:55 INFO     ==> Loading DatasetConstructor
+2019-02-23 07:17:57 INFO     ==> Creating Dataloader
