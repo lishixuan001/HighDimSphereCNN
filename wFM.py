@@ -16,8 +16,8 @@ class wFMLayer(nn.Module):
         super(wFMLayer, self).__init__()
         #Initial input is B * N * D * C ----> B * N1 * D * C'
         #dont forget to normalize w in dim 0
-        self.w1 = nn.Parameter(torch.randn(in_channels, num_neighbor))
-        self.w2 = nn.Parameter(torch.randn(out_channels, in_channels))
+        self.w1 = nn.Parameter(torch.randn(in_channels, num_neighbor)).cuda()
+        self.w2 = nn.Parameter(torch.randn(out_channels, in_channels)).cuda()
         self.neighbors = num_neighbor
         self.out_channels = out_channels
 
@@ -37,14 +37,16 @@ class wFMLayer(nn.Module):
       
       ptcld = point_set.view(B*N, D, C) #reshape pointset to BN * DC
       ptcld = ptcld.view(B*N, D*C)
+      #st()
       gathered=ptcld[k2] #get matrix of dimension B*N*K*(D*C)
-
+      #print(gathered.shape)
       gathered = gathered.view(B, N, k, D, C)
-      north_pole_cos = torch.zeros(gathered.shape)
+      north_pole_cos = torch.zeros(gathered.shape).cuda()
       theta = torch.acos(torch.clamp(gathered[:, :, :, 0, :], -1, 1)) #this is of shape B*N*K*C
       eps = torch.ones(theta.shape)*0.0001
-      theta_sin = theta / (torch.sin(theta) + eps) #theta/sin(theta) B*N*K*D*C
+      theta_sin = theta / (torch.sin(theta) + eps.cuda()) #theta/sin(theta) B*N*K*D*C
       north_pole_cos[:, :, :, 0, :] = torch.cos(theta) #cos(theta)
+      st()
       q_p = gathered - north_pole_cos #q-cos(theta)
       theta_sin = theta_sin.repeat(1, 1, 1, D) #should be of shape B*N*K*D*C
       theta_sin = theta_sin.view(B, N, k, D, C)
@@ -84,7 +86,7 @@ class wFMLayer(nn.Module):
       #weighted_sum = torch.mean(weighted, -2)
       #print(1 in torch.isnan(weighted_sum).numpy())
       v_mag = torch.norm(weighted_sum, dim=2)
-      north_pole_cos_vmag = torch.zeros(weighted_sum.shape)
+      north_pole_cos_vmag = torch.zeros(weighted_sum.shape).cuda()
       north_pole_cos_vmag[:, :, 0, :] = torch.cos(v_mag)
       normed_w = F.normalize(weighted_sum, p=2, dim=2)
       sin_vmag = torch.sin(v_mag).repeat(1, 1, D).view(B, N, D, m)
@@ -115,10 +117,10 @@ class Last(nn.Module):
       #Input is B*N*D*C where B is batch size, N is number of points, D is dimension of each point, and C is input channel
       B, N, D, C = point_set.shape
 
-      north_pole_cos = torch.zeros(point_set.shape) #B*N*D*C
+      north_pole_cos = torch.zeros(point_set.shape).cuda() #B*N*D*C
       theta = torch.acos(torch.clamp(point_set[:, :, 0, :], -1, 1)) #this is of shape B*N*D*C
       eps = torch.ones(theta.shape)*0.0001
-      theta_sin = theta / (torch.sin(theta) + eps) #theta/sin(theta) B*N*K*D*C
+      theta_sin = theta / (torch.sin(theta) + eps.cuda()) #theta/sin(theta) B*N*K*D*C
       north_pole_cos[:, :, 0, :] = torch.cos(theta) #cos(theta)
       q_p = point_set - north_pole_cos #q-cos(theta)
       theta_sin = theta_sin.repeat(1, 1, D) #should be of shape B*N*K*D*C
@@ -133,7 +135,7 @@ class Last(nn.Module):
       #print(1 in torch.isnan(unweighted_sum).numpy())
 
       v_mag = torch.norm(unweighted_sum, dim=2)
-      north_pole_cos_vmag = torch.zeros(unweighted_sum.shape)
+      north_pole_cos_vmag = torch.zeros(unweighted_sum.shape).cuda()
       north_pole_cos_vmag[:, :, 0] = torch.cos(v_mag)
       normed_w = F.normalize(unweighted_sum, p=2, dim=2)
       sin_vmag = torch.sin(v_mag).repeat(1, D).view(B, N, D)
@@ -151,7 +153,7 @@ class Last(nn.Module):
     ## to do: implement inverse exponential mapping
     def forward(self, x):
         # print(self.wFM_on_sphere(x))
-        return self.linear2(self.wFM_on_sphere(x))
+        return self.linear2(self.wFM_on_sphere(x, adj_mtr))
 
 def sdt(x, grid = 20, sigma = 1):
    dim = x.shape[2]

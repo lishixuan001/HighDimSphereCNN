@@ -13,8 +13,7 @@ class ManifoldNet(nn.Module):
         self.wFM3 = wFM.wFMLayer(20, 30, num_neighbor)
         self.last = wFM.Last(10, num_classes)
     
-    def forward(self, x):
-        adj = utils.pairwise_distance(x)
+    def forward(self, x, neighborhood_matrix):
         return self.last(self.wFM3(self.wFM2(self.wFM1(x, neighborhood_matrix), neighborhood_matrix), neighborhood_matrix))
         #return self.last(self.wFM1(x, adj))
 
