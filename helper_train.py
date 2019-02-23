@@ -41,7 +41,7 @@ def load_args():
     parser.add_argument("--test",
                         help="if test is true, then load data from test dataset",
                         type=bool,
-                        default=True,
+                        default=False,
                         required=False)
     parser.add_argument("--epochs",
                         help="number of epochs",
