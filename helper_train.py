@@ -21,8 +21,8 @@ def load_args():
     parser.add_argument("--batchsize",
                         help="the batch size of the dataloader",
                         type=int,
-                        default=8,
-                        required=True)
+                        default=2,
+                        required=False)
     parser.add_argument("--validsize",
                         help="percentage that training set split into validation set",
                         type=float,
@@ -46,7 +46,7 @@ def load_args():
     parser.add_argument("--epochs",
                         help="number of epochs",
                         type=int,
-                        default=20,
+                        default=5,
                         required=False)
     parser.add_argument("--learning_rate",
                         help="learning rate of the model",
