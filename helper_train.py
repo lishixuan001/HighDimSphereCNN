@@ -93,15 +93,15 @@ def load_data(dataset_class, batch_size, shuffle=True, num_workers=4):
     print(dataset_class.adjacent_matrix.float().size())
     return
 
-    loader = torch.utils.data.TensorDataset(dataset_class.data.float(),
-                                            dataset_class.labels.long(),
-                                            dataset_class.adjacent_matrix.float())
-
-    loader_dataset = torch.utils.data.DataLoader(loader,
-                                                 batch_size=batch_size,
-                                                 shuffle=shuffle,
-                                                 num_workers=num_workers)
-    return loader_dataset
+    # loader = torch.utils.data.TensorDataset(dataset_class.data.float(),
+    #                                         dataset_class.labels.long(),
+    #                                         dataset_class.adjacent_matrix.float())
+    #
+    # loader_dataset = torch.utils.data.DataLoader(loader,
+    #                                              batch_size=batch_size,
+    #                                              shuffle=shuffle,
+    #                                              num_workers=num_workers)
+    # return loader_dataset
 
 
 ##########################################################
