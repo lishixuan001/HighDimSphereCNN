@@ -64,18 +64,13 @@ def load_args():
                         required=False)
     parser.add_argument("--demo",
                         help="if demo is true, then only load small number of images",
-                        type=bool,
-                        default=False,
+                        type=int,
+                        default=0,
                         required=False)
     parser.add_argument("--test",
                         help="if test is true, then load data from test dataset",
                         type=bool,
                         default=True,
-                        required=False)
-    parser.add_argument("--num_load",
-                        help="number of images to be loaded",
-                        type=int,
-                        default=2,
                         required=False)
     parser.add_argument("--grid_size",
                         help="set the grid size",

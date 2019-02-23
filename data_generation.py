@@ -33,7 +33,7 @@ def main():
 
     """ Data Size (num of images to be loaded)"""
     if args.demo:
-        data_size = args.num_load # Number of images to be loaded
+        data_size = args.demo # Number of images to be loaded
         output_file_name = "demo_" + output_file_name
     else:
         data_size = f_data['data'].shape[0]
