@@ -4,7 +4,7 @@ import pickle
 import os
 import torch
 import utils
-from logger_setup import *
+from logger import *
 from helper_data_generation import *
 
 
@@ -13,7 +13,6 @@ def main():
     logger = setup_logger('Data_Generation')
     args = load_args()
     logger.info("Received Args: \n{}".format(args))
-
 
     ##########################################################
     #                      Data Loading                      #
@@ -64,7 +63,6 @@ def main():
 
     logger.info("Finish Loading MNIST Data and Basic Configuration")
 
-
     ##########################################################
     #                     Adjacent Matrix                    #
     ##########################################################
@@ -99,28 +97,14 @@ def main():
 
     """ Normalization (Raw) """
     logger.info("==> Normalizing Raw Data")
-    tensor_dataset_transpose = tensor_dataset.transpose(0, 2) # (3, num_points, data_size)
 
-    for i in range(tensor_dataset_transpose.size()[0]):
-        data_dimension = tensor_dataset_transpose[i]
-        minimum = int(torch.min(data_dimension))
-        maximum = int(torch.max(data_dimension))
-
-        if maximum != minimum:
-            frac = 2.0 / (maximum - minimum)
-            subt = -1.0 * (minimum + 1.0 / frac)
-            tensor_dataset_transpose[i] = torch.add(tensor_dataset_transpose[i], subt)
-            tensor_dataset_transpose[i] = torch.mul(tensor_dataset_transpose[i], frac)
-
-    tensor_dataset = tensor_dataset_transpose.transpose(0, 2)
+    tensor_dataset = raw_data_normalization(tensor_dataset)
 
     """ Grid """
     logger.info("==> Constructing Grid")
+
     grid_size = args.grid_size
-    linspace = np.linspace(-1, 1, grid_size)
-    grid = np.meshgrid(linspace, linspace, linspace) # (3, grid_size, grid_size, grid_size)
-    grid = torch.from_numpy(np.array(grid))
-    grid = grid.reshape(grid.size()[0], -1).float() # (3, grid_size^3)
+    grid = grid_generation(grid_size)
 
     """ Mapping and Normalization """
     logger.info("==> Computing Mapping and Normalization")
@@ -152,7 +136,7 @@ def main():
 
     logger.info("Start Saving Dataset")
     with gzip.open(os.path.join(args.output_prefix, output_file_name), 'wb') as file:
-        pickle.dump(MNIST(tensor_dataset, tensor_labels, adjacent_matrix), file)
+        pickle.dump(DatasetConstructor(tensor_dataset, tensor_labels, adjacent_matrix), file)
     logger.info("Finish Saving Dataset")
 
 if __name__ == '__main__':

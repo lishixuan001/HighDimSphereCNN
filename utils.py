@@ -32,22 +32,3 @@ def knn(adj_matrix, k=20):
     """
     nn_idx = np.argsort(adj_matrix, axis=-1)[:,:,1:k+1] #torch.nn.top_k(neg_adj, k=k)
     return nn_idx
-
-def sample_subset(idx_input, num_output):
-    return np.random.choice(idx_input, num_output ,replace = False)
-
-def sdt_gpu(x, grid = 20, sigma = 1):
-    dim = x.shape[2]
-    num_point = x.shape[1]
-    linspace = np.linspace(0,1,grid)
-    mesh = linspace
-    for i in range(dim-1):
-        mesh = np.meshgrid(mesh, linspace)
-    mesh = torch.from_numpy(np.array(mesh)).cuda()
-    mesh = mesh.reshape(mesh.shape[0], -1)
-    
-    temp = x.unsqueeze(-1).repeat( 1,1,1,mesh.shape[-1])
-    temp = temp - mesh.unsqueeze(0).unsqueeze(0)#torch.from_numpy(np.expand_dims(np.expand_dims(mesh, 0),0)).cuda()
-    out = torch.sum(temp**2, -2)
-    norms = torch.norm(out, dim = 2, keepdim=True)
-    return out/norms

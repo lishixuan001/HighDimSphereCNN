@@ -13,11 +13,11 @@ from enum import Enum
 #                       Data Loader                      #
 ##########################################################
 
-class MNIST(Dataset):
+class DatasetConstructor(Dataset):
     def __init__(self, tensor_data, tensor_labels, adjacent_matrix):
         self.data = tensor_data  # (data_size, num_points, grid_size^3)
         self.labels = tensor_labels  # (data_size,)
-        self.adjacent_matrix = adjacent_matrix
+        self.adjacent_matrix = adjacent_matrix # (data_size, num_points, num_points)
 
     def __len__(self):
         return self.data.shape[0] # data_size
@@ -95,23 +95,43 @@ def load_args():
     args = parser.parse_args()
     return args
 
-def get_min_distance(point_cloud):
-    """
-    calculate the minimal distance of the given point cloud
-    :param point_cloud: tensor (train_size, num_points, num_dims)
-    :return: half of the minimal distance between 2 points, which is assigned as the radius of sphere
-    """
-    num_points_in_cloud = point_cloud.shape[0]
-    min_distance = np.inf
-    for index in range(num_points_in_cloud):
-        points_coords = point_cloud[index]
-        pairwise_point_distances = spdist.pdist(points_coords)
-        min_distance = min(pairwise_point_distances.min(), min_distance)
-    return min_distance
+
+##########################################################
+#                 Raw Data Normalization                 #
+##########################################################
+
+def raw_data_normalization(tensor_dataset):
+    tensor_dataset_transpose = tensor_dataset.transpose(0, 2) # (3, num_points, data_size)
+
+    for i in range(tensor_dataset_transpose.size()[0]):
+        data_dimension = tensor_dataset_transpose[i]
+        minimum = int(torch.min(data_dimension))
+        maximum = int(torch.max(data_dimension))
+
+        if maximum != minimum:
+            frac = 2.0 / (maximum - minimum)
+            subt = -1.0 * (minimum + 1.0 / frac)
+            tensor_dataset_transpose[i] = torch.add(tensor_dataset_transpose[i], subt)
+            tensor_dataset_transpose[i] = torch.mul(tensor_dataset_transpose[i], frac)
+
+    tensor_dataset = tensor_dataset_transpose.transpose(0, 2)
+    return tensor_dataset
 
 
 ##########################################################
-#                      Progress Bar                    #
+#                     Grid Generation                    #
+##########################################################
+
+def grid_generation(grid_size):
+    linspace = np.linspace(-1, 1, grid_size)
+    grid = np.meshgrid(linspace, linspace, linspace)  # (3, grid_size, grid_size, grid_size)
+    grid = torch.from_numpy(np.array(grid))
+    grid = grid.reshape(grid.size()[0], -1).float()  # (3, grid_size^3)
+    return grid
+
+
+##########################################################
+#                      Progress Bar                     #
 ##########################################################
 
 def progress(count, total):

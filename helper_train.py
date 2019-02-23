@@ -1,10 +1,8 @@
 import argparse
 import sys
-from os.path import join
+import torch
 import numpy as np
-from torch.utils.data import Dataset
-from scipy.spatial import distance as spdist
-from enum import Enum
+from torch.autograd import Variable
 
 
 
@@ -50,17 +48,71 @@ def load_args():
                         type=int,
                         default=20,
                         required=False)
-    parser.add_argument("--learning-rate",
+    parser.add_argument("--learning_rate",
                         help="learning rate of the model",
                         type=float,
-                        default=5e-3,
+                        default=1e-2,
                         required=False)
-    parser.add_argument("--cuda",
-                        help="cuda number to use, if use cpu, please enter -1",
+    parser.add_argument("--num_classes",
+                        help="number of classes for classification",
                         type=int,
-                        required=True)
+                        default=10,
+                        required=False)
+    parser.add_argument("--num_neighbors",
+                        help="num of neighbors for the network",
+                        type=int,
+                        default=15,
+                        required=False)
+    parser.add_argument("--cudas",
+                        help="cuda numbera to use, if use cpu, please enter -1",
+                        type=str,
+                        default="0/1/2/3",
+                        required=False)
     args = parser.parse_args()
     return args
+
+
+##########################################################
+#                       Load Dataset                     #
+##########################################################
+
+def load_data(dataset_class, batch_size, shuffle=True, num_workers=4):
+    """
+    Load dataset into torch's DataLoader format
+    :param dataset_class: class.data = (data_size, num_points, grid_size^3)
+                          class.labels = (data_size, )
+                          class.adjacent_matrix = (data_size, num_points, num_points)
+    :param batch_size: batch size for loading data
+    :param shuffle: boolean for if shuffle the loaded data or not
+    :param num_workers: number of subprocesses to use for data loading
+    :return: type => torch.utils.data.DataLoader
+    """
+    # FIXME : Labels be long type ?
+    loader = torch.utils.data.TensorDataset(dataset_class.data.float(),
+                                            dataset_class.labels,
+                                            dataset_class.adjacent_matrix.float())
+    loader_dataset = torch.utils.data.DataLoader(loader,
+                                                 batch_size=batch_size,
+                                                 shuffle=shuffle,
+                                                 num_workers=num_workers)
+    return loader_dataset
+
+
+##########################################################
+#                    Train Evaluation                    #
+##########################################################
+
+def evaluate(loader_dataset, model):
+    accuracies = list()
+    for batch_index, (dataset, labels, adjacent_matrix) in enumerate(loader_dataset):
+        adjacent_matrix = adjacent_matrix.cuda()
+        dataset = Variable(dataset).cuda()
+        predictions = model(dataset, adjacent_matrix)
+        prediction = torch.argmax(predictions, dim=-1)
+        accuracy = np.mean(prediction.detach().cpu().numpy() == labels.numpy())
+        accuracies.append(accuracy)
+    return np.mean(accuracies)
+
 
 ##########################################################
 #                      Progress Bar                    #
