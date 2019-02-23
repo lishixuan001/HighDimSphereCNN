@@ -37,13 +37,14 @@ class wFMLayer(nn.Module):
       
       ptcld = point_set.view(B*N, D, C) #reshape pointset to BN * DC
       ptcld = ptcld.view(B*N, D*C)
+      #st()
       gathered=ptcld[k2] #get matrix of dimension B*N*K*(D*C)
-
+      #print(gathered.shape)
       gathered = gathered.view(B, N, k, D, C)
-      north_pole_cos = torch.zeros(gathered.shape)
+      north_pole_cos = torch.zeros(gathered.shape).cuda()
       theta = torch.acos(torch.clamp(gathered[:, :, :, 0, :], -1, 1)) #this is of shape B*N*K*C
-      eps = torch.ones(theta.shape)*0.0001
-      theta_sin = theta / (torch.sin(theta) + eps) #theta/sin(theta) B*N*K*D*C
+      eps = (torch.ones(theta.shape)*0.0001).cuda()
+      theta_sin = theta / (torch.sin(theta) + eps ) #theta/sin(theta) B*N*K*D*C
       north_pole_cos[:, :, :, 0, :] = torch.cos(theta) #cos(theta)
       q_p = gathered - north_pole_cos #q-cos(theta)
       theta_sin = theta_sin.repeat(1, 1, 1, D) #should be of shape B*N*K*D*C
@@ -84,7 +85,7 @@ class wFMLayer(nn.Module):
       #weighted_sum = torch.mean(weighted, -2)
       #print(1 in torch.isnan(weighted_sum).numpy())
       v_mag = torch.norm(weighted_sum, dim=2)
-      north_pole_cos_vmag = torch.zeros(weighted_sum.shape)
+      north_pole_cos_vmag = torch.zeros(weighted_sum.shape).cuda()
       north_pole_cos_vmag[:, :, 0, :] = torch.cos(v_mag)
       normed_w = F.normalize(weighted_sum, p=2, dim=2)
       sin_vmag = torch.sin(v_mag).repeat(1, 1, D).view(B, N, D, m)
@@ -115,9 +116,9 @@ class Last(nn.Module):
       #Input is B*N*D*C where B is batch size, N is number of points, D is dimension of each point, and C is input channel
       B, N, D, C = point_set.shape
 
-      north_pole_cos = torch.zeros(point_set.shape) #B*N*D*C
+      north_pole_cos = torch.zeros(point_set.shape).cuda() #B*N*D*C
       theta = torch.acos(torch.clamp(point_set[:, :, 0, :], -1, 1)) #this is of shape B*N*D*C
-      eps = torch.ones(theta.shape)*0.0001
+      eps = (torch.ones(theta.shape)*0.0001).cuda()
       theta_sin = theta / (torch.sin(theta) + eps) #theta/sin(theta) B*N*K*D*C
       north_pole_cos[:, :, 0, :] = torch.cos(theta) #cos(theta)
       q_p = point_set - north_pole_cos #q-cos(theta)
@@ -133,7 +134,7 @@ class Last(nn.Module):
       #print(1 in torch.isnan(unweighted_sum).numpy())
 
       v_mag = torch.norm(unweighted_sum, dim=2)
-      north_pole_cos_vmag = torch.zeros(unweighted_sum.shape)
+      north_pole_cos_vmag = torch.zeros(unweighted_sum.shape).cuda()
       north_pole_cos_vmag[:, :, 0] = torch.cos(v_mag)
       normed_w = F.normalize(unweighted_sum, p=2, dim=2)
       sin_vmag = torch.sin(v_mag).repeat(1, D).view(B, N, D)
@@ -156,7 +157,7 @@ class Last(nn.Module):
 def sdt(x, grid = 20, sigma = 1):
    dim = x.shape[2]
    num_point = x.shape[1]
-   out = np.zeros((x.shape[0],x.shape[1],grid**dim,1))
+   out = np.zeros((x.shape[0],x.shape[1],grid**dim,1)).cuda()
    linspace = np.linspace(0,1,grid)
    mesh = linspace
    for i in range(dim-1):
