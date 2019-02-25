@@ -1,35 +1,6 @@
 import numpy as np
 import torch
-import h5py
 from pdb import set_trace as st
-
-def sdt(inputs, grid, sigma):
-    x = inputs
-    dim = x.shape[2]
-    num_point = x.shape[1]
-    linspace = np.linspace(-1,1,grid)
-    mesh = linspace
-    for i in range(dim-1):
-        mesh = np.meshgrid(mesh, linspace)
-    mesh = torch.from_numpy(np.array(mesh))#.cuda()
-    mesh = mesh.reshape(mesh.shape[0], -1).float()
-
-    temp = x.unsqueeze(-1).repeat( 1,1,1,mesh.shape[-1])
-    temp = temp - mesh.unsqueeze(0).unsqueeze(0).cuda()#torch.from_numpy(np.expand_dims(np.expand_dims(mesh, 0),0)).cuda()
-    out = torch.sum(temp**2, -2)
-    out = torch.exp(-out/(2*sigma))
-    norms = torch.norm(out, dim = 2, keepdim=True)
-    out = (out/norms).unsqueeze(-1)    
-    return out
-
-def load_data(data_dir, batch_size, shuffle = True, num_workers=4):
-    train_data = h5py.File(data_dir , 'r')
-    xs = np.array(train_data['data'])
-    ys = np.array(train_data['labels'])
-    train_loader = torch.utils.data.TensorDataset(torch.from_numpy(xs).float(), torch.from_numpy(ys).long())
-    train_loader_dataset = torch.utils.data.DataLoader(train_loader, batch_size=batch_size, shuffle = shuffle, num_workers=num_workers)      
-    train_data.close()
-    return train_loader_dataset
 
 def pairwise_distance(point_cloud):
     """Compute pairwise distance of a point cloud.
@@ -61,6 +32,3 @@ def knn(adj_matrix, k=20):
     """
     nn_idx = np.argsort(adj_matrix, axis=-1)[:,:,1:k+1] #torch.nn.top_k(neg_adj, k=k)
     return nn_idx
-
-def sample_subset(idx_input, num_output):
-    return np.random.choice(idx_input, num_output ,replace = False)
