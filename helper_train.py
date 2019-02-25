@@ -16,7 +16,6 @@ def load_args():
     Load arguments from user command input [attributes for training]
     :return: parsed arguments
     """
-    mnist_data_path = '../mnistPC'
     parser = argparse.ArgumentParser()
     parser.add_argument("--batchsize",
                         help="the batch size of the dataloader",
@@ -87,7 +86,6 @@ def load_data(dataset_class, batch_size, shuffle=True, num_workers=4):
     :param num_workers: number of subprocesses to use for data loading
     :return: type => torch.utils.data.DataLoader
     """
-    # FIXME : Labels be long type ?
     loader = torch.utils.data.TensorDataset(dataset_class.data.float(),
                                             dataset_class.labels.long(),
                                             dataset_class.adjacent_matrix.float())
@@ -97,7 +95,6 @@ def load_data(dataset_class, batch_size, shuffle=True, num_workers=4):
                                                  shuffle=shuffle,
                                                  num_workers=num_workers)
     return loader_dataset
-
 
 ##########################################################
 #                    Train Evaluation                    #
