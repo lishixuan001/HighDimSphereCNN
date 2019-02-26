@@ -4,7 +4,7 @@
 
 >>>>>>> master
 import gzip
-import pickle
+import cPickle as pickle
 import os
 from helper_train import *
 from logger import *
