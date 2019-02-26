@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="aaae0bf4-192e-439a-9c22-145a2ec5c94a" name="Default Changelist" comment="">
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/helper_train.py" beforeDir="false" afterPath="$PROJECT_DIR$/helper_train.py" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/model.py" afterDir="false" />
+>>>>>>> master
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,35 +19,59 @@
     <session id="-792114057">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+<<<<<<< HEAD
           <entry key="project.open.time.2" value="1" />
           <entry key="project.opened" value="1" />
+=======
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.1" value="1" />
+          <entry key="project.open.time.2" value="1" />
+          <entry key="project.opened" value="2" />
+>>>>>>> master
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+<<<<<<< HEAD
           <entry key="py" value="47" />
+=======
+          <entry key="py" value="60" />
+>>>>>>> master
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
+<<<<<<< HEAD
           <entry key="Python" value="47" />
+=======
+          <entry key="Python" value="60" />
+>>>>>>> master
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="dummy" value="11" />
+<<<<<<< HEAD
           <entry key="py" value="10043" />
+=======
+          <entry key="py" value="10097" />
+>>>>>>> master
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="11" />
+<<<<<<< HEAD
           <entry key="Python" value="10043" />
+=======
+          <entry key="Python" value="10097" />
+>>>>>>> master
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
+<<<<<<< HEAD
     <leaf>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/train.py">
@@ -107,10 +136,100 @@
         </entry>
       </file>
     </leaf>
+=======
+    <splitter split-orientation="horizontal" split-proportion="0.5">
+      <split-first>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/train.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="247">
+                  <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/helper_train.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="967">
+                  <caret line="89" column="71" selection-start-line="89" selection-start-column="71" selection-end-line="89" selection-end-column="71" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/model.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="414">
+                  <caret line="18" column="116" lean-forward="true" selection-start-line="18" selection-start-column="116" selection-end-line="18" selection-end-column="116" />
+                  <folding>
+                    <element signature="e#0#12#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/wFM.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="115">
+                  <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+                  <folding>
+                    <element signature="e#0#12#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/helper_data_generation.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="3818">
+                  <caret line="173" selection-start-line="173" selection-end-line="173" />
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-first>
+      <split-second>
+        <leaf>
+          <file pinned="false" current-in-tab="false">
+            <entry file="file://$USER_HOME$/Downloads/solver.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-1462">
+                  <folding>
+                    <element signature="e#0#29#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file pinned="false" current-in-tab="true">
+            <entry file="file://$USER_HOME$/Downloads/wFM.py">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="184">
+                  <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+                  <folding>
+                    <element signature="e#0#12#0" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+        </leaf>
+      </split-second>
+    </splitter>
+>>>>>>> master
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
       <find>batch</find>
+<<<<<<< HEAD
+=======
+      <find>-1</find>
+>>>>>>> master
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -124,6 +243,7 @@
         <option value="$PROJECT_DIR$/solver.py" />
         <option value="$USER_HOME$/Downloads/HighDimSphereCNN/solver.py" />
         <option value="$USER_HOME$/Downloads/[Down]HighDimSphereCNN/solver.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/model.py" />
         <option value="$PROJECT_DIR$/utils.py" />
         <option value="$USER_HOME$/Downloads/[Down]HighDimSphereCNN/wFM.py" />
@@ -132,6 +252,17 @@
         <option value="$PROJECT_DIR$/train.py" />
         <option value="$PROJECT_DIR$/data_generation.py" />
         <option value="$PROJECT_DIR$/helper_train.py" />
+=======
+        <option value="$PROJECT_DIR$/utils.py" />
+        <option value="$USER_HOME$/Downloads/[Down]HighDimSphereCNN/wFM.py" />
+        <option value="$PROJECT_DIR$/wFM.py" />
+        <option value="$PROJECT_DIR$/data_generation.py" />
+        <option value="$PROJECT_DIR$/logger.py" />
+        <option value="$PROJECT_DIR$/helper_data_generation.py" />
+        <option value="$PROJECT_DIR$/train.py" />
+        <option value="$PROJECT_DIR$/helper_train.py" />
+        <option value="$PROJECT_DIR$/model.py" />
+>>>>>>> master
       </list>
     </option>
   </component>
@@ -142,16 +273,26 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+<<<<<<< HEAD
     <option name="x" value="3360" />
     <option name="width" value="1080" />
     <option name="height" value="1920" />
   </component>
+=======
+    <option name="width" value="1440" />
+    <option name="height" value="900" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+>>>>>>> master
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+<<<<<<< HEAD
       <pane id="Scope" />
+=======
+>>>>>>> master
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -163,6 +304,10 @@
           <select />
         </subPane>
       </pane>
+<<<<<<< HEAD
+=======
+      <pane id="Scope" />
+>>>>>>> master
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -207,6 +352,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< HEAD
     <frame x="3360" y="0" width="1080" height="1920" extended-state="6" />
     <editor active="true" />
     <layout>
@@ -219,6 +365,14 @@
       <window_info anchor="bottom" id="Python Console" />
       <window_info active="true" anchor="bottom" id="Terminal" visible="true" weight="0.19847329" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
+=======
+    <frame x="0" y="0" width="1440" height="900" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info content_ui="combo" id="Project" order="0" weight="0.14449213" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+>>>>>>> master
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32988003" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -226,6 +380,7 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
+<<<<<<< HEAD
       <window_info anchor="right" id="Database" />
       <window_info anchor="right" id="R Packages" />
       <window_info anchor="right" id="SciView" />
@@ -233,6 +388,21 @@
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+=======
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="10" visible="true" weight="0.23587224" />
+      <window_info anchor="bottom" id="Python Console" order="11" />
+      <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="SciView" order="3" />
+      <window_info anchor="right" id="R Graphics" order="4" />
+      <window_info anchor="right" id="R Packages" order="5" />
+      <window_info anchor="right" id="Database" order="6" />
+>>>>>>> master
     </layout>
     <layout-to-restore>
       <window_info id="Favorites" order="0" side_tool="true" />
@@ -267,6 +437,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/logger.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="184">
@@ -283,10 +454,31 @@
           <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/data_loader.py" />
+    <entry file="file://$PROJECT_DIR$/dataloader.py" />
+    <entry file="file://$USER_HOME$/Downloads/HighDimSphereCNN-master/dataloader.py" />
+    <entry file="file://$USER_HOME$/Downloads/HighDimSphereCNN-master/wFM.py" />
+    <entry file="file://$USER_HOME$/Downloads/HighDimSphereCNN-master/model.py" />
+    <entry file="file://$USER_HOME$/Downloads/HighDimSphereCNN/utils.py" />
+    <entry file="file://$USER_HOME$/Downloads/HighDimSphereCNN/solver.py" />
+    <entry file="file://$PROJECT_DIR$/solver.py" />
+    <entry file="file://$USER_HOME$/Downloads/[Down]HighDimSphereCNN/logger.py" />
+    <entry file="file://$USER_HOME$/Downloads/[Down]HighDimSphereCNN/solver.py" />
+    <entry file="file://$USER_HOME$/Downloads/[Down]HighDimSphereCNN/model.py" />
+    <entry file="file://$USER_HOME$/Downloads/[Down]HighDimSphereCNN/utils.py" />
+    <entry file="file://$PROJECT_DIR$/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="46">
+          <caret line="2" column="31" lean-forward="true" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+>>>>>>> master
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$USER_HOME$/Downloads/HighDimSphereCNN-master/dataloader.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -307,12 +499,33 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
           <caret line="5" column="12" lean-forward="true" selection-end-line="20" />
+=======
+    <entry file="file://$USER_HOME$/Downloads/[Down]HighDimSphereCNN/wFM.py" />
+    <entry file="file://$PROJECT_DIR$/logger.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="10" column="35" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/helper_data_generation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3818">
+          <caret line="173" selection-start-line="173" selection-end-line="173" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+>>>>>>> master
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$USER_HOME$/Downloads/HighDimSphereCNN/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="188">
@@ -324,12 +537,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-594">
           <caret line="14" lean-forward="true" selection-start-line="14" selection-end-line="14" />
+=======
+    <entry file="file://$USER_HOME$/Downloads/solver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1462">
+>>>>>>> master
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/solver.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="46">
@@ -360,10 +579,26 @@
           <caret line="8" column="27" selection-start-line="5" selection-end-line="20" selection-end-column="17" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/data_generation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="511">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Downloads/wFM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="8" column="32" lean-forward="true" selection-start-line="8" selection-start-column="32" selection-end-line="8" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+>>>>>>> master
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$USER_HOME$/Downloads/[Down]HighDimSphereCNN/model.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="115">
@@ -384,10 +619,19 @@
           <caret line="2" column="31" lean-forward="true" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
+=======
+    <entry file="file://$PROJECT_DIR$/wFM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="115">
+          <caret line="5" column="17" lean-forward="true" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+>>>>>>> master
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$USER_HOME$/Downloads/[Down]HighDimSphereCNN/wFM.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -399,12 +643,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="253">
           <caret line="11" column="31" selection-start-line="11" selection-start-column="31" selection-end-line="11" selection-end-column="31" />
+=======
+    <entry file="file://$PROJECT_DIR$/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="18" column="116" lean-forward="true" selection-start-line="18" selection-start-column="116" selection-end-line="18" selection-end-column="116" />
+>>>>>>> master
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/helper_data_generation.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
@@ -414,11 +665,18 @@
             <marker date="1550931621130" expanded="true" signature="1436:1437" ph="..." />
             <marker date="1550931621130" expanded="true" signature="3542:4715" ph="..." />
           </folding>
+=======
+    <entry file="file://$PROJECT_DIR$/helper_train.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="967">
+          <caret line="89" column="71" selection-start-line="89" selection-start-column="71" selection-end-line="89" selection-end-column="71" />
+>>>>>>> master
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/train.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state relative-caret-position="460">
           <caret line="20" column="45" selection-start-line="20" selection-start-column="45" selection-end-line="20" selection-end-column="45" />
           <folding>
@@ -447,6 +705,10 @@
             <marker date="1550935168774" expanded="true" signature="457:458" ph="..." />
             <marker date="1550935168774" expanded="true" signature="4521:4958" ph="..." />
           </folding>
+=======
+        <state relative-caret-position="247">
+          <caret line="72" lean-forward="true" selection-start-line="72" selection-end-line="72" />
+>>>>>>> master
         </state>
       </provider>
     </entry>

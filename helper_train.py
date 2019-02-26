@@ -16,7 +16,10 @@ def load_args():
     Load arguments from user command input [attributes for training]
     :return: parsed arguments
     """
+<<<<<<< HEAD
     mnist_data_path = '../mnistPC'
+=======
+>>>>>>> master
     parser = argparse.ArgumentParser()
     parser.add_argument("--batchsize",
                         help="the batch size of the dataloader",
@@ -87,6 +90,7 @@ def load_data(dataset_class, batch_size, shuffle=True, num_workers=4):
     :param num_workers: number of subprocesses to use for data loading
     :return: type => torch.utils.data.DataLoader
     """
+<<<<<<< HEAD
     # FIXME : Labels be long type ?
     print(dataset_class.data.float().size())
     print(dataset_class.labels.long().size())
@@ -103,6 +107,17 @@ def load_data(dataset_class, batch_size, shuffle=True, num_workers=4):
     #                                              num_workers=num_workers)
     # return loader_dataset
 
+=======
+    loader = torch.utils.data.TensorDataset(dataset_class.data.float(),
+                                            dataset_class.labels.long(),
+                                            dataset_class.adjacent_matrix.float())
+
+    loader_dataset = torch.utils.data.DataLoader(loader,
+                                                 batch_size=batch_size,
+                                                 shuffle=shuffle,
+                                                 num_workers=num_workers)
+    return loader_dataset
+>>>>>>> master
 
 ##########################################################
 #                    Train Evaluation                    #
@@ -129,6 +144,12 @@ def progress(count, total):
     filled_len = int(round(bar_len * count / float(total)))
     percents = round(100.0 * count / float(total), 1)
     bar = '=' * filled_len + '-' * (bar_len - filled_len)
+<<<<<<< HEAD
     print('\r[%s] %s%s' % (bar, percents, '%'), end='')
     # sys.stdout.write('[%s] %s%s\r' % (bar, percents, '%'))
     sys.stdout.flush()
+=======
+    print('\r[%s] %s%s' % (bar, percents, '%'))
+    # sys.stdout.write('[%s] %s%s\r' % (bar, percents, '%'))
+    sys.stdout.flush()
+>>>>>>> master

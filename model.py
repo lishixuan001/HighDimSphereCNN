@@ -5,7 +5,10 @@ import torch.nn.functional as F
 import wFM
 import utils
 from pdb import set_trace as st
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 
 class ManifoldNet(nn.Module):
     def __init__(self, num_classes, num_neighbor):
@@ -15,6 +18,12 @@ class ManifoldNet(nn.Module):
         self.wFM3 = wFM.wFMLayer(20, 30, num_neighbor).cuda()
         self.last = wFM.Last(30, num_classes).cuda()
 
+<<<<<<< HEAD
     def forward(self, x, neighborhood_matrix):
         return self.last(
             self.wFM3(self.wFM2(self.wFM1(x, neighborhood_matrix), neighborhood_matrix), neighborhood_matrix))
+=======
+    def forward(self, dataset, neighborhood_matrix):
+        return self.last(
+            self.wFM3(self.wFM2(self.wFM1(dataset, neighborhood_matrix), neighborhood_matrix), neighborhood_matrix))
+>>>>>>> master

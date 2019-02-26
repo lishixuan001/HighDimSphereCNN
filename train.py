@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+#!/usr/bin/env python
+
+>>>>>>> master
 import gzip
 import pickle
 import os
@@ -107,4 +112,8 @@ def main():
     logger.info("Finish Training")
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     main()
+=======
+    main()
+>>>>>>> master

@@ -171,6 +171,7 @@ def map_and_norm(tensor_dataset, grid, sigma):
     tensor_dataset = tensor_dataset / tensor_dataset_norms  # (data_size, num_points, grid_size^3)
 
     return tensor_dataset
+<<<<<<< HEAD
 
 ##########################################################
 #                         Utility                        #
@@ -187,3 +188,5 @@ class UtilityError(Exception):
     def __str__(self):
         return repr(self.value)
 
+=======
+>>>>>>> master
