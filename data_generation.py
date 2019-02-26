@@ -1,6 +1,6 @@
 import h5py
 import gzip
-import pickle
+import cPickle as pickle
 import os
 import torch
 import utils
@@ -40,8 +40,8 @@ def main():
         data_size = f_data['data'].shape[0]
 
     """ Notice Python Version """
-    py_version = int(floor(sys.version_info[0]))
-    output_file_name = "py{py_version}_{filename}".format(py_version=str(py_version), filename=output_file_name)
+    # py_version = int(floor(sys.version_info[0]))
+    # output_file_name = "py{py_version}_{filename}".format(py_version=str(py_version), filename=output_file_name)
 
     """ Number of Points (MNIST => 512)"""
     num_points = f_data['data'].shape[1]
@@ -144,7 +144,7 @@ def main():
 
     logger.info("Start Saving Dataset")
     with gzip.open(os.path.join(args.output_prefix, output_file_name), 'wb') as file:
-        pickle.dump(DatasetConstructor(tensor_dataset, tensor_labels, adjacent_matrix), file, protocol=py_version)
+        pickle.dump(DatasetConstructor(tensor_dataset, tensor_labels, adjacent_matrix), file)
     logger.info("Finish Saving Dataset")
 
 if __name__ == '__main__':
