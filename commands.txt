@@ -1,5 +1,5 @@
-srun --partition=savio2_gpu  --nodes=1 --gres=gpu:2 --ntasks=1 --cpus-per-task=4 --time=24:00:00 python train.py
+srun --partition=savio2_gpu  --nodes=1 --gres=gpu:2 --ntasks=1 --cpus-per-task=4 --time=24:00:00 python train.py --test True
 
-srun --partition=savio2_bigmem --ntasks=1 --cpus-per-task=2 --time=02:00:00 python data_generation.py
+srun --partition=savio2_bigmem --ntasks=1 --cpus-per-task=2 --time=02:00:00 python data_generation.py --test True
 
 

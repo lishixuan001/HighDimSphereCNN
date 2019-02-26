@@ -60,7 +60,12 @@ def load_args():
     parser.add_argument("--batch_size",
                         help="the batch size of the dataloader",
                         type=int,
-                        default=1,
+                        default=10,
+                        required=False)
+    parser.add_argument("--save_batch",
+                        help="the batch size for saving as pickle",
+                        type=int,
+                        default=200,
                         required=False)
     parser.add_argument("--demo",
                         help="if demo is true, then only load small number of images",
