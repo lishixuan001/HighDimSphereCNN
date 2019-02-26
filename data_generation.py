@@ -4,7 +4,6 @@ import cPickle as pickle
 import os
 import torch
 import utils
-from math import floor
 from logger import *
 from helper_data_generation import *
 
@@ -38,10 +37,6 @@ def main():
         output_file_name = "demo_" + output_file_name
     else:
         data_size = f_data['data'].shape[0]
-
-    """ Notice Python Version """
-    # py_version = int(floor(sys.version_info[0]))
-    # output_file_name = "py{py_version}_{filename}".format(py_version=str(py_version), filename=output_file_name)
 
     """ Number of Points (MNIST => 512)"""
     num_points = f_data['data'].shape[1]
