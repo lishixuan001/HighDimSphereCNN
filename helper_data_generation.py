@@ -75,12 +75,12 @@ def load_args():
     parser.add_argument("--grid_size",
                         help="set the grid size",
                         type=int,
-                        default=20,
+                        default=10,
                         required=False)
     parser.add_argument("--sigma",
                         help="set the sigma for mapping",
                         type=int,
-                        default=10,
+                        default=0.01,
                         required=False)
     parser.add_argument("--output-prefix",
                         help="file for saving the data output (.gz file)",

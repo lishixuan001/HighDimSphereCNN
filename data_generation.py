@@ -118,8 +118,8 @@ def main():
     total_count = tensor_dataset.size()[0]
     mapped_tensor_datasets = []
     while end < tensor_dataset.size()[0]:
-        tensor_dataset_subset = tensor_dataset[start : end]
-        tensor_dataset_mapped_norm = map_and_norm(tensor_dataset_subset, grid, sigma)
+        tensor_dataset_subset = tensor_dataset[start : end] # (batch_size, num_points, 3)
+        tensor_dataset_mapped_norm = map_and_norm(tensor_dataset_subset, grid, sigma) # (batch_size, num_points, grid_size^3)
         mapped_tensor_datasets.append(tensor_dataset_mapped_norm)
         progress(end, total_count)
         start += batch_size
