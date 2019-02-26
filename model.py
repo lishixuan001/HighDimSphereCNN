@@ -6,7 +6,6 @@ import wFM
 import utils
 from pdb import set_trace as st
 
-
 class ManifoldNet(nn.Module):
     def __init__(self, num_classes, num_neighbor):
         super(ManifoldNet, self).__init__()
