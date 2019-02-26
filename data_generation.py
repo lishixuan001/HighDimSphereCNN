@@ -1,6 +1,6 @@
 import h5py
 import gzip
-import cPickle as pickle
+import pickle
 import os
 import torch
 import utils

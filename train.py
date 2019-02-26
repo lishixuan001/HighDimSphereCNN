@@ -1,5 +1,5 @@
 import gzip
-import cPickle as pickle
+import pickle
 import os
 from helper_train import *
 from logger import *
@@ -73,7 +73,7 @@ def main():
 
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
 
-    for epoch in num_epochs:
+    for epoch in range(num_epochs):
         running_loss = list()
         cls_criterion = torch.nn.CrossEntropyLoss().cuda()
 

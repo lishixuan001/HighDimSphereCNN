@@ -1,0 +1,6 @@
+2019-02-25 21:52:21 INFO     Received Args: 
+Namespace(batch_size=1, demo=10, grid_size=20, output_prefix='../mnistPC', sigma=10, test=True, test_file_path='../mnistPC/test.hdf5', train_file_path='../mnistPC/train.hdf5')
+2019-02-25 21:52:21 INFO     Start Loading MNIST Data and Configurations
+2019-02-25 21:52:21 INFO     ==> Loading Configurations
+2019-02-25 21:52:21 INFO     ==> Loading Labels
+2019-02-25 21:52:21 INFO     ==> Loading Data Set
