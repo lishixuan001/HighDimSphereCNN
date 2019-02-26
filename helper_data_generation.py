@@ -171,22 +171,3 @@ def map_and_norm(tensor_dataset, grid, sigma):
     tensor_dataset = tensor_dataset / tensor_dataset_norms  # (data_size, num_points, grid_size^3)
 
     return tensor_dataset
-<<<<<<< HEAD
-
-##########################################################
-#                         Utility                        #
-##########################################################
-
-class UtilityTypes(Enum):
-    Gaussian = "Gaussian"
-    Potential = "Potential"
-
-class UtilityError(Exception):
-    def __init__(self, value):
-        self.value = value
-
-    def __str__(self):
-        return repr(self.value)
-
-=======
->>>>>>> master
