@@ -4,7 +4,6 @@ import torch
 from os.path import join
 import numpy as np
 from torch.utils.data import Dataset
-from scipy.spatial import distance as spdist
 from enum import Enum
 
 
@@ -65,7 +64,7 @@ def load_args():
     parser.add_argument("--save_batch",
                         help="the batch size for saving as pickle",
                         type=int,
-                        default=200,
+                        default=100,
                         required=False)
     parser.add_argument("--demo",
                         help="if demo is true, then only load small number of images",

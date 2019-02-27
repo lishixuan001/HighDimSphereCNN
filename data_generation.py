@@ -51,7 +51,7 @@ def main():
 
     """ Load Raw Data Set """
     logger.info("--> Loading Data Set")
-    np_dataset = np.array(f_data['data'])[0:data_size] # train_size * 512 * 2
+    np_dataset = np.array(f_data['data'])[0:data_size] # (data_size, 512, 2)
     tensor_dataset = torch.from_numpy(np_dataset).float() # convert from numpy.ndarray to torch.Tensor
 
     """ Adjust Data Dimension """
@@ -117,8 +117,8 @@ def main():
     sigma = args.sigma
     batch_size = args.batch_size
     start, end = 0, args.batch_size
-    index, save_batch = 0, args.save_batch
-    save_start = 0
+#     index, save_batch = 0, args.save_batch
+#     save_start = 0
 
     total_count = tensor_dataset.size()[0]
     mapped_tensor_datasets = list()
@@ -127,19 +127,26 @@ def main():
         tensor_dataset_mapped_norm = map_and_norm(tensor_dataset_subset, grid, sigma) # (batch_size, num_points, grid_size^3)
         mapped_tensor_datasets.append(tensor_dataset_mapped_norm)
         
-        """ Saving Processes """
-        if len(mapped_tensor_datasets) >= save_batch:
-            save_file_name = "part{index}_{filename}".format(index=index, filename=output_file_name)
-            tensor_dataset_part = torch.cat(tuple(mapped_tensor_datasets), dim=0)
-            tensor_labels_part = tensor_labels[save_start : end]
-            adjacent_matrix_part = adjacent_matrix[save_start : end]
+#         """ Saving Processes """
+#         if len(mapped_tensor_datasets) >= save_batch:
+#             save_file_name = "part{index}_{filename}".format(index=index, filename=output_file_name)
+#             tensor_dataset_part = torch.cat(tuple(mapped_tensor_datasets), dim=0)
+#             tensor_labels_part = tensor_labels[save_start : end]
+#             adjacent_matrix_part = adjacent_matrix[save_start : end]
             
-            with gzip.open(os.path.join(output_path, save_file_name), 'wb') as file:
-                pickle.dump(DatasetConstructor(tensor_dataset_part, tensor_labels_part, adjacent_matrix_part), file)
+#             print(tensor_dataset_part.size())
+#             print(tensor_labels_part.size())
+#             print(adjacent_matrix_part.size())
             
-            mapped_tensor_datasets = list()
-            save_start = end
-            index += 1
+#             dataConstructor = DatasetConstructor(tensor_dataset_part, tensor_labels_part, adjacent_matrix_part)
+#             print(sys.getsizeof(object))
+            
+#             with gzip.open(os.path.join(output_path, save_file_name), 'wb') as file:
+#                 pickle.dump(dataConstructor, file)
+            
+#             mapped_tensor_datasets = list()
+#             save_start = end
+#             index += 1
         
         progress(end, total_count)
         start += batch_size
@@ -148,14 +155,19 @@ def main():
     tensor_dataset_subset = tensor_dataset[start: tensor_dataset.size()[0]]
     tensor_dataset_mapped_norm = map_and_norm(tensor_dataset_subset, grid, sigma)
     mapped_tensor_datasets.append(tensor_dataset_mapped_norm)
+    tensor_dataset = torch.cat(tuple(mapped_tensor_datasets), dim=0)
     
-    save_file_name = "part{index}_{filename}".format(index=index, filename=output_file_name)
-    tensor_dataset_part = torch.cat(tuple(mapped_tensor_datasets), dim=0)
-    tensor_labels_part = tensor_labels[save_start : tensor_dataset.size()[0]]
-    adjacent_matrix_part = adjacent_matrix[save_start : tensor_dataset.size()[0]]
+#     print(tensor_dataset_part.size())
+#     print(tensor_labels_part.size())
+#     print(adjacent_matrix_part.size())
+
+#     save_file_name = "part{index}_{filename}".format(index=index, filename=output_file_name)
+#     tensor_dataset_part = torch.cat(tuple(mapped_tensor_datasets), dim=0)
+#     tensor_labels_part = tensor_labels[save_start : tensor_dataset.size()[0]]
+#     adjacent_matrix_part = adjacent_matrix[save_start : tensor_dataset.size()[0]]
     
-    with gzip.open(os.path.join(output_path, save_file_name), 'wb') as file:
-        pickle.dump(DatasetConstructor(tensor_dataset_part, tensor_labels_part, adjacent_matrix_part), file)
+#     with gzip.open(os.path.join(output_path, save_file_name), 'wb') as file:
+#         pickle.dump(DatasetConstructor(tensor_dataset_part, tensor_labels_part, adjacent_matrix_part), file)
     
     progress(total_count, total_count)
 
@@ -165,24 +177,24 @@ def main():
     #                       Data Saving                      #
     ##########################################################
 
-#     logger.info("Start Saving Dataset")
+    logger.info("Start Saving Dataset")
     
-#     total_count = tensor_dataset.size()[0]
-#     index, save_batch = 0, args.save_batch
-#     start, end = 0, args.save_batch
-#     while end < tensor_dataset.size()[0]:
-#         output_file_name = "part{index}_{filename}".format(index=index, filename=output_file_name)
-#         tensor_dataset_part = tensor_dataset[start : end]
-#         tensor_labels_part = tensor_labels[start : end]
-#         adjacent_matrix_part = adjacent_matrix[start : end]
-#         with gzip.open(os.path.join(output_path, output_file_name), 'wb') as file:
-#             pickle.dump(DatasetConstructor(tensor_dataset_part, tensor_labels_part, adjacent_matrix_part), file)
-#         progress(end, total_count)
-#         index += 1
-#         start += save_batch
-#         end += save_batch
+    total_count = tensor_dataset.size()[0]
+    index, save_batch = 0, args.save_batch
+    start, end = 0, args.save_batch
+    while end < tensor_dataset.size()[0]:
+        output_file_name = "part{index}_{filename}".format(index=index, filename=output_file_name)
+        tensor_dataset_part = tensor_dataset[start : end]
+        tensor_labels_part = tensor_labels[start : end]
+        adjacent_matrix_part = adjacent_matrix[start : end]
+        with gzip.open(os.path.join(output_path, output_file_name), 'wb') as file:
+            pickle.dump(DatasetConstructor(tensor_dataset_part, tensor_labels_part, adjacent_matrix_part), file)
+        progress(end, total_count)
+        index += 1
+        start += save_batch
+        end += save_batch
         
-#     logger.info("Finish Saving Dataset")
+    logger.info("Finish Saving Dataset")
 
 if __name__ == '__main__':
     main()

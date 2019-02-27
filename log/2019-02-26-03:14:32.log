@@ -1,0 +1,14 @@
+2019-02-26 03:14:32 INFO     Received Args: 
+Namespace(batch_size=10, demo=0, grid_size=10, output_prefix='../mnistPC', save_batch=100, sigma=0.01, test=True, test_file_path='../mnistPC/test.hdf5', train_file_path='../mnistPC/train.hdf5')
+2019-02-26 03:14:32 INFO     Start Loading MNIST Data and Configurations
+2019-02-26 03:14:32 INFO     --> Loading Configurations
+2019-02-26 03:14:32 INFO     --> Loading Labels
+2019-02-26 03:14:32 INFO     --> Loading Data Set
+2019-02-26 03:14:32 INFO     --> Data Dimension Adjustment Operated
+2019-02-26 03:14:32 INFO     Finish Loading MNIST Data and Basic Configuration
+2019-02-26 03:14:32 INFO     Start Computing Adjacent Matrix
+2019-02-26 03:14:40 INFO     Finish Computing Adjacent Matrix                            
+2019-02-26 03:14:40 INFO     Start Computing Dataset Generation
+2019-02-26 03:14:40 INFO     --> Normalizing Raw Data
+2019-02-26 03:14:40 INFO     --> Constructing Grid
+2019-02-26 03:14:40 INFO     --> Computing Mapping and Normalization
